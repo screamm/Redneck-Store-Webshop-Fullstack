@@ -1,0 +1,36 @@
+
+
+Krav för G
+
+
+- Diagram för:
+        - databas
+        - sitemap
+        - tidsplan
+
+- Databas uppsatt i tabeller/collections enligt diagram
+
+- Utveckla användargränssnitt för administratörer där de kan lägga till, (ta bort) och redigera produkter
+
+- Produkter ska sparas i databasen
+
+- Användare ska kunna se en lista med alla produkter och lägga dem i sin varukorg
+
+- Användaren ska kunna "betala" för sina varor och skapa en order i databasen
+
+- Administratören ska kunna se listan med ordrar och vilka varor som beställts
+
+
+VG
+
+- Samtliga punkter för G
+
+- Alla typer av objekt i databasen ska ha en egen klass som resten av kodbasen arbetar mot. -> (t.ex. Order, Product, User)
+
+- Alla klasser ska ärva från en basklass som sköter laddande och sparande av data till databasen
+
+- En singleton ska användas för alla databasfrågor 
+
+- Varukorgen ska sparas i databasen och delar gemensam funktionalitet med order-klassen
+
+- Betalning genomförs med vald betaltjänst (t.ex. Stripe)

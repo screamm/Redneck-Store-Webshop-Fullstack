@@ -1,0 +1,18 @@
+[
+  {
+    "email": "david@gmail.com",
+    "password": "$2b$10$L6G4ajMknQjNgazJLqNVbu5U/m5klip3683PNlDygS/we9bUm3OCS"
+  },
+  {
+    "email": "david2@gmail.com",
+    "password": "$2b$10$E86w.q362LUrrGrtU.asxeyXbn9zJAAavDoi/bySwACbJDYnNQC1u"
+  },
+  {
+    "email": "david3@gmail.com",
+    "password": "$2b$10$Tc0MMqLL9y5jqxyJNOphYOK/h66lNWeGDeEMr/Bt9AiZ/XKMG7d72"
+  },
+  {
+    "email": "david4@gmail.com",
+    "password": "$2b$10$D0R2N4VWbS.EQPgOAIN34.OOoeKbqy/7Zd1dk9pT/9fgMXls3WiEu"
+  }
+]
