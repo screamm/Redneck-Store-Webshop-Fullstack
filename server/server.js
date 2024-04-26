@@ -87,6 +87,18 @@ app.post("/products/:id", async (request, response) => {
 
 
 
+//TAG BORT PRODUKT
+app.delete("/products/:id", async (request, response) => {
+    
+    await DatabaseConnection.getInstance().updateProduct(request.params.id, request.body);
+
+    response.json({"id": request.params.id});
+
+});
+
+
+
+
 app.use(cookieSession({
     secret: "DontTellAnyone",
     maxAge: 1000 * 60 * 60 * 24,
