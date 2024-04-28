@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import Logout from "./Logout";
+import LoginButton from "./LoginButton";
 
 const Header = ({
   setIsModalOpen,
@@ -19,12 +20,17 @@ const Header = ({
 
     const toggleModal = () => {
       setIsModalOpen(prevState => !prevState);
+      
     };
+
+    const isloggedIn = localStorage.getItem("isLoggedIn") === "true";
+
 
     return (
       <div>
         <div className="flex items-center ml-10 pt-4">
-          <Logout />
+
+          {isloggedIn ? <Logout /> : <LoginButton />}
           <div>
             <button className="ml-20 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300 ease-in-out mt-4" onClick={toggleModal}> Cart - {quantityProducts}</button>
           </div>
@@ -34,6 +40,7 @@ const Header = ({
         </div>
       </div>
     );
-  };
+
+}
 
 export default Header;

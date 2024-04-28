@@ -101,7 +101,7 @@ app.delete("/products/:id", async (request, response) => {
 
 app.use(cookieSession({
     secret: "DontTellAnyone",
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: 1000 * 60 * 60,
   }));
 
   app.use("/auth", authRouter)

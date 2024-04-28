@@ -5,6 +5,7 @@ import { Cancellation } from "./src/pages/Cancellation";
 import { Confirmation } from "./src/pages/Confirmation";
 import { Store } from "./src/pages/Store";
 import { Admin } from "./src/pages/Admin";
+import { LoginPage } from "./src/pages/LoginPage";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ export const router = createBrowserRouter([
       {
         path: "/admin",
         element: <Admin />,
+        
+      },
+      {
+        path: "/loginpage",
+        element: <LoginPage />,
         
       },
       {

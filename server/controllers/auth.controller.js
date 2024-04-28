@@ -1,5 +1,5 @@
 const fs = require("fs").promises
-// const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt")
 const fetchUsers = require("../utils/fetchUsers")
 const path = require("path");
 
@@ -16,12 +16,11 @@ const register = async (req, res) => {
         return res.status(400).json("EXISTING USER, TRY AGAIN")
     }
 
-    // const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10)
 
     const newUser = {
         email,
-        password: password
-// hashedPassword
+        password: hashedPassword
 
     }
 
@@ -41,7 +40,7 @@ const login = async (req, res) => {
     const users = await fetchUsers()
     const userExists = users.find(u => u.email === email)
 
-    if (!userExists || !await /* bcrypt. */compare(password, userExists.password)) {
+    if (!userExists || !await bcrypt.compare(password, userExists.password)) {
         return res.status(400).json("WRONG PASSWORD")
     }
 

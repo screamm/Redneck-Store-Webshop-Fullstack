@@ -32,6 +32,7 @@ const CartModal = ({
       lineItems: cart.map((item) => ({
         product: item.product._id,
         amount: item.quantity,
+        totalCost: item.product.price * item.quantity,
       })),
       email: user.email,
     };

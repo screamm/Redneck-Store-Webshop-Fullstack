@@ -14,5 +14,13 @@
   {
     "email": "david4@gmail.com",
     "password": "$2b$10$D0R2N4VWbS.EQPgOAIN34.OOoeKbqy/7Zd1dk9pT/9fgMXls3WiEu"
+  },
+  {
+    "email": "david123",
+    "password": "david123"
+  },
+  {
+    "email": "david9@gmail.com",
+    "password": "$2b$10$2OqmipnpY6qyr5VXMaZx2e1q26qSPTrWzBoGR5FJUK1xCt19D9QVm"
   }
 ]

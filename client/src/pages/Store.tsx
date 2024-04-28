@@ -3,7 +3,7 @@ import { useCart } from "../context/CartContext";
 import Header from "../components/Header";
 import CartModal from "../components/CartModal";
 import logo from "../img/logo redneck.png";
-import CircularProgress from '@mui/material/CircularProgress';
+// import CircularProgress from '@mui/material/CircularProgress';
 
 export const Store = () => {
   const [products, setProducts] = useState([]);
