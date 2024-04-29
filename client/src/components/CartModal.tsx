@@ -26,15 +26,18 @@ const CartModal = ({
     setTotalQuantity(newTotalQuantity);
   }, [cart]);
 
+
   const handlePayment = async () => {
     const user = JSON.parse(localStorage.getItem("user") as string);
     const cartForMongo = {
-      lineItems: cart.map((item) => ({
-        product: item.product._id,
-        amount: item.quantity,
-        totalCost: item.product.price * item.quantity,
-      })),
-      email: user.email,
+        lineItems: cart.map((item) => ({
+            product: item.product._id,
+            amount: item.quantity,
+            totalPrice: item.product.price * item.quantity
+        })),
+        email: user.email,
+        status: "paid",  // Säkerställ att detta värde är korrekt satt
+        totalPrice: totalCost  // Anta att totalCost är korrekt beräknad tidigare
     };
 
     try {
@@ -48,33 +51,69 @@ const CartModal = ({
 
         const data = await response.json();
 
-        // if (response.ok) {
-        //     console.log("Order created successfully", data);
-        //     localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
-        //     // window.location.href = data.url;
-
-
-
-
-
-            if (response.ok) {
-              console.log("Order created successfully", data);
-              localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
-              // Call clearCart here
-              clearCart();
-            
-              window.location.href = "/Confirmation";
-
-
+        if (response.ok) {
+            console.log("Order created successfully", data);
+            localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
+            clearCart();
+            window.location.href = "/Confirmation";
         } else {
             console.error("Failed to create order", data);
         }
     } catch (error) {
         console.error("Error:", error);
     }
+};
+
+
+
+//   const handlePayment = async () => {
+//     const user = JSON.parse(localStorage.getItem("user") as string);
+//     const cartForMongo = {
+//       lineItems: cart.map((item) => ({
+//         product: item.product._id,
+//         amount: item.quantity,
+//       })),
+//       email: user.email,
+//     };
+
+//     try {
+//         const response = await fetch("http://localhost:3000/create-order", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(cartForMongo),
+//         });
+
+//         const data = await response.json();
+
+//         // if (response.ok) {
+//         //     console.log("Order created successfully", data);
+//         //     localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
+//         //     // window.location.href = data.url;
+
+
+
+
+
+//             if (response.ok) {
+//               console.log("Order created successfully", data);
+//               localStorage.setItem("sessionId", JSON.stringify(data.sessionId));
+//               // Call clearCart here
+//               clearCart();
+            
+//               window.location.href = "/Confirmation";
+
+
+//         } else {
+//             console.error("Failed to create order", data);
+//         }
+//     } catch (error) {
+//         console.error("Error:", error);
+//     }
     
 
-};
+// };
 
   // const handlePayment = async () => {
   //   const cartForMongo = cart.map((item) => ({

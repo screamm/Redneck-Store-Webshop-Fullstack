@@ -20,30 +20,64 @@ class DatabaseConnection {
         await this.client.connect();
     }
 
-    async saveOrder(lineItems, customer) {
+    async saveOrder(lineItems, customer, status, orderTotalPrice) {
+      await this.connect();
+  
+      let db = this.client.db("shop");
+      let collection = db.collection("orders");
+  
+      // Beräkna totalt pris för ordern om det inte redan är givet
+      if (!orderTotalPrice) {
+          orderTotalPrice = lineItems.reduce((total, item) => total + item.totalPrice, 0);
+      }
+  
+      let result = await collection.insertOne({
+          "customer": customer,
+          "orderDate": new Date(),
+          "status": status,
+          "totalPrice": orderTotalPrice,
+          "paymentId": null
+      });
+  
+      let orderId = result.insertedId;
+      let encodedLineItems = lineItems.map((lineItem) => {
+          return {
+              "amount": lineItem["amount"],
+              "totalPrice": lineItem["totalPrice"], // Använd det faktiska totalpriset från klienten
+              "order": new mongodb.ObjectId(orderId),
+              "product": new mongodb.ObjectId(lineItem["product"]),
+          }
+      });
+  
+      let lineItemsCollection = db.collection("lineItems");
+      await lineItemsCollection.insertMany(encodedLineItems);
+  
+      return orderId;
+  }
+    // async saveOrder(lineItems, customer) {
 
-        await this.connect();
+    //     await this.connect();
 
-        let db = this.client.db("shop");
-        let collection = db.collection("orders");
+    //     let db = this.client.db("shop");
+    //     let collection = db.collection("orders");
 
-        let result = await collection.insertOne({"customer": customer, "orderDate": new Date(), "status": "unpaid", "totalPrice": 0, "paymentId": null}); //METODO: calculate total price
+    //     let result = await collection.insertOne({"customer": customer, "orderDate": new Date(), "status": "unpaid", "totalPrice": 0, "paymentId": null}); //METODO: calculate total price
 
-        let orderId = result.insertedId;
-        let encodedLineItems = lineItems.map((lineItem) => {
-            return {
-                "amount": lineItem["amount"],
-                "totalPrice": 0 /* METODO: calculate */,
-                "order": new mongodb.ObjectId(orderId),
-                "product": new mongodb.ObjectId(lineItem["product"]),
-            }
-        })
+    //     let orderId = result.insertedId;
+    //     let encodedLineItems = lineItems.map((lineItem) => {
+    //         return {
+    //             "amount": lineItem["amount"],
+    //             "totalPrice": 0 /* METODO: calculate */,
+    //             "order": new mongodb.ObjectId(orderId),
+    //             "product": new mongodb.ObjectId(lineItem["product"]),
+    //         }
+    //     })
         
-        let lineItemsCollection = db.collection("lineItems");
-        await lineItemsCollection.insertMany(encodedLineItems)
+    //     let lineItemsCollection = db.collection("lineItems");
+    //     await lineItemsCollection.insertMany(encodedLineItems)
 
-        return result.insertedId;
-    }
+    //     return result.insertedId;
+    // }
 
     async createProduct() {
         await this.connect();

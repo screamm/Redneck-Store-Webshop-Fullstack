@@ -46,21 +46,43 @@ app.get("/products", async (request, response) => {
 
 
 //SKAPA ORDER
+
 app.post("/create-order", async (request, response) => {
-    
-    //METODO: create customer
-    let orderId = await DatabaseConnection.getInstance().saveOrder(request.body.lineItems, request.body.email)
-    response.json({"id": orderId});
+    try {
+        let { lineItems, email, status, totalPrice } = request.body;
+        let orderId = await DatabaseConnection.getInstance().saveOrder(lineItems, email, status, totalPrice);
 
-    const ordersFilePath = path.join(__dirname, ".", "data", "orders.json");
-
-    const orders = JSON.parse(await fs.readFile(ordersFilePath));
-    orders.push(request.body);
-    await fs.writeFile(ordersFilePath, JSON.stringify(orders, null, 4));
-console.log("*********** Order created ************".blue.bold);
-    // response.status(200).json({ verified: true });
-    return; 
+        response.status(200).json({ "id": orderId });
+        console.log("*********** Order created ************".blue.bold);
+    } catch (error) {
+        console.error("Failed to create order:", error);
+        response.status(500).json({ error: "Internal Server Error" });
+    }
 });
+
+
+
+// app.post("/create-order", async (request, response) => {
+    
+//     //METODO: create customer
+//     let orderId = await DatabaseConnection.getInstance().saveOrder(request.body.lineItems, request.body.email)
+//     response.json({"id": orderId});
+
+//     const ordersFilePath = path.join(__dirname, ".", "data", "orders.json");
+
+//     const orders = JSON.parse(await fs.readFile(ordersFilePath));
+//     orders.push(request.body);
+//     await fs.writeFile(ordersFilePath, JSON.stringify(orders, null, 4));
+// console.log("*********** Order created ************".blue.bold);
+//     // response.status(200).json({ verified: true });
+//     return; 
+// });
+
+
+
+
+
+
 
 // response.status(200).json({ verified: false });
 
