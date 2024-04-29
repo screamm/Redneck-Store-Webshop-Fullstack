@@ -8,17 +8,17 @@ Krav för G
         - sitemap
         - tidsplan
 
-- Databas uppsatt i tabeller/collections enligt diagram
+- [x] Databas uppsatt i tabeller/collections enligt diagram
 
 - Utveckla användargränssnitt för administratörer där de kan lägga till, (ta bort) och redigera produkter
 
-- Produkter ska sparas i databasen
+- [x] Produkter ska sparas i databasen
 
-- Användare ska kunna se en lista med alla produkter och lägga dem i sin varukorg
+- [x] Användare ska kunna se en lista med alla produkter och lägga dem i sin varukorg
 
-- Användaren ska kunna "betala" för sina varor och skapa en order i databasen
+- [x] Användaren ska kunna "betala" för sina varor och skapa en order i databasen
 
-- Administratören ska kunna se listan med ordrar och vilka varor som beställts
+- [x] Administratören ska kunna se listan med ordrar och vilka varor som beställts
 
 
 VG

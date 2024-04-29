@@ -148,64 +148,55 @@ class DatabaseConnection {
         return returnArray;
     }
 
+  
+
     async getAllOrders() {
-        await this.connect();
-
-        let db = this.client.db("shop");
-        let collection = db.collection("orders");
-
-        let pipeline = [
-            {
-              $lookup: {
-                from: "lineItems",
-                localField: "_id",
-                foreignField: "order",
-                as: "lineItems",
-                pipeline: [
-                  {
-                    $lookup: {
-                      from: "products",
-                      localField: "product",
-                      foreignField: "_id",
-                      as: "product",
-                    },
+      await this.connect();
+      let db = this.client.db("shop");
+      let collection = db.collection("orders");
+  
+      let pipeline = [
+          {
+            $lookup: {
+              from: "lineItems",
+              localField: "_id",
+              foreignField: "order",
+              as: "lineItems",
+              pipeline: [
+                {
+                  $lookup: {
+                    from: "products",
+                    localField: "product",
+                    foreignField: "_id",
+                    as: "product",
                   },
-                  {
-                    $addFields: {
-                      product: {
-                        $first: "$product",
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              $lookup: {
-                from: "customers",
-                localField: "customer",
-                foreignField: "_id",
-                as: "customer",
-              },
-            },
-            {
-              $addFields: {
-                linkedCustmer: {
-                  $first: "$customer",
                 },
-              },
+                {
+                  $addFields: {
+                    product: {
+                      $first: "$product",
+                    },
+                  },
+                },
+              ],
             },
-          ];
+          },
+          {
+            $addFields: {
+              linkedCustomerEmail: "$customer",  // Directly use customer as it's the email
+            },
+          },
+        ];
+  
+      let documents = collection.aggregate(pipeline);
+      let returnArray = [];
+      for await(let document of documents) {
+          returnArray.push(document);
+      }
+      return returnArray;
+  }
+  
 
-        let documents = collection.aggregate(pipeline);
-        let returnArray = [];
-
-        for await(let document of documents) {
-            returnArray.push(document);
-        }
-
-        return returnArray;
-    }
 
     static getInstance() {
         if(instance === null) {
