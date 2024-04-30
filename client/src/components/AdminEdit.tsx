@@ -1,16 +1,91 @@
-import React, { useEffect, useState } from "react";
-import EditProduct from "./EditProduct";
-import {DeleteProduct} from "./DeleteProduct";
+// import React, { useEffect, useState } from "react";
+// import EditProduct from "./EditProduct";
+// import {DeleteProduct} from "./DeleteProduct";
+
+// const AdminEdit = () => {
+//   const [products, setProducts] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState('');
+//   const [editProductId, setEditProductId] = useState(null);
+
+//   useEffect(() => {
+//     fetchProducts();
+//   }, []);
+
+//   const fetchProducts = async () => {
+//     setLoading(true);
+//     try {
+//       const response = await fetch("http://localhost:3000/products");
+//       const data = await response.json();
+//       if (!response.ok) throw new Error(data.message || "Failed to fetch products");
+//       setProducts(data);
+//     } catch (error) {
+//       setError("Failed to fetch products: " + error.message);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleSaveEdit = async (productId, updatedData) => {
+//     try {
+//       const response = await fetch(`http://localhost:3000/products/${productId}`, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(updatedData),
+//       });
+//       await response.json();
+//       fetchProducts(); // Refresh the list
+//       setEditProductId(null); // Reset edit mode
+//     } catch (error) {
+//       console.error("Failed to update product:", error);
+//     }
+//   };
+
+//   const cancelEdit = () => {
+//     setEditProductId(null);
+//   };
+
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>{error}</p>;
+
+//   return (
+//     <div>
+//       <h1 className=" text-white font-bold py-2 px-4 rounded mt-4 mb-16 ml-4 text-3xl">Product Administration</h1>
+//       <button onClick={fetchProducts} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-16 ml-4">Fetch Products</button>
+//       {products.map((product) => (
+//         <div key={product._id} className="product-item">
+//           {editProductId === product._id ? (
+//             <EditProduct product={product} saveEdit={handleSaveEdit} cancelEdit={cancelEdit} />
+//           ) : (
+//             <>
+//               <h3>{product.name} - ${product.price}</h3>
+//               <button onClick={() => setEditProductId(product._id)}>Edit</button>
+//               <EditProduct product={product} saveEdit={handleSaveEdit} cancelEdit={cancelEdit} />
+//               {/* <button onClick={() => handleDeleteProduct(product._id)}>Delete</button> */}
+//               <DeleteProduct productId={product._id} fetchProducts={fetchProducts} />
+//             </>
+//           )}
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+import React, { useState } from "react";
+import DeleteProduct from './DeleteProduct';
 
 const AdminEdit = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [editProductId, setEditProductId] = useState(null);
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const [editFormData, setEditFormData] = useState({
+    name: '',
+    price: '',
+    description: '',
+    image: ''
+  });
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -26,25 +101,45 @@ const AdminEdit = () => {
     }
   };
 
-  const handleSaveEdit = async (productId, updatedData) => {
+  const handleEditClick = (product) => {
+    setEditProductId(product._id);
+    setEditFormData({
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      image: product.image
+    });
+  };
+
+  const handleEditProduct = async () => {
+    if (!editProductId) return;
+
+    setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/products/${productId}`, {
+      const response = await fetch(`http://localhost:3000/products/${editProductId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(editFormData),
       });
+      if (!response.ok) throw new Error("Failed to update the product");
       await response.json();
+      setEditProductId(null); // Hide the input fields again
       fetchProducts(); // Refresh the list
-      setEditProductId(null); // Reset edit mode
     } catch (error) {
       console.error("Failed to update product:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const cancelEdit = () => {
-    setEditProductId(null);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData(prev => ({
+      ...prev,
+      [name]: name === 'price' ? parseFloat(value) || 0 : value
+    }));
   };
 
   if (loading) return <p>Loading...</p>;
@@ -52,19 +147,31 @@ const AdminEdit = () => {
 
   return (
     <div>
-      <h1 className=" text-white font-bold py-2 px-4 rounded mt-4 mb-16 ml-4 text-3xl">Product Administration</h1>
-      <button onClick={fetchProducts} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-16 ml-4">Fetch Products</button>
-      {products.map((product) => (
-        <div key={product._id} className="product-item">
+      <h1>Product Administration</h1>
+      <button onClick={fetchProducts} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Fetch Products</button>
+      {products.length > 0 && products.map((product) => (
+        <div key={product._id} className="product-item mt-4">
           {editProductId === product._id ? (
-            <EditProduct product={product} saveEdit={handleSaveEdit} cancelEdit={cancelEdit} />
+            <>
+              <input type="text" name="name" value={editFormData.name} onChange={handleChange} className=" border-2 rounded-md border-lime-600 mt-2"/>
+              <br />
+              <input type="number" name="price" value={editFormData.price} onChange={handleChange} className=" border-2 rounded-md border-lime-600 mt-2"/>
+              <br />
+              <input type="text" name="description" value={editFormData.description} onChange={handleChange} className=" border-2 rounded-md border-lime-600 mt-2"/>
+              <br />
+              <input type="text" name="image" value={editFormData.image} onChange={handleChange} className=" border-2 rounded-md border-lime-600 mt-2"/>
+              <br />
+              <button onClick={handleEditProduct} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2 mb-10">Save</button>
+            </>
           ) : (
             <>
+            <div >
               <h3>{product.name} - ${product.price}</h3>
-              <button onClick={() => setEditProductId(product._id)}>Edit</button>
-              <EditProduct product={product} saveEdit={handleSaveEdit} cancelEdit={cancelEdit} />
-              {/* <button onClick={() => handleDeleteProduct(product._id)}>Delete</button> */}
+                <p>{product.description}</p>
+                <img src={product.image} alt={product.name} className="w-1/6"/>
+              <button onClick={() => handleEditClick(product)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
               <DeleteProduct productId={product._id} fetchProducts={fetchProducts} />
+              </div>
             </>
           )}
         </div>
@@ -75,8 +182,10 @@ const AdminEdit = () => {
 
 export default AdminEdit;
 
+// export default AdminEdit;
 
 
+//********************************************************************************************************************************************************************** */
 // import React, { useEffect, useState } from "react";
 
 // const AdminEdit = () => {

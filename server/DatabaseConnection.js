@@ -204,6 +204,19 @@ class DatabaseConnection {
         }
         return instance;
     }
+
+// In DatabaseConnection.js
+
+async deleteProduct(productId) {
+  await this.connect();
+  const db = this.client.db("shop");
+  const collection = db.collection("products");
+  const result = await collection.deleteOne({ _id: new mongodb.ObjectId(productId) });
+  return result;
+}
+
+
+
 }
 
 module.exports = DatabaseConnection;

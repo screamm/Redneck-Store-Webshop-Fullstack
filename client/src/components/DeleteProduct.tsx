@@ -23,3 +23,4 @@ export const DeleteProduct = ({ productId, fetchProducts }) => {
     </button>
   );
 };
+export default DeleteProduct;

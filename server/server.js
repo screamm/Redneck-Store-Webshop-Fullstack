@@ -87,12 +87,26 @@ app.post("/products/:id", async (request, response) => {
 
 
 //TAG BORT PRODUKT
-app.delete("/products/:id", async (request, response) => {
+// app.delete("/products/:id", async (request, response) => {
     
-    await DatabaseConnection.getInstance().updateProduct(request.params.id, request.body);
+//     await DatabaseConnection.getInstance().updateProduct(request.params.id, request.body);
 
-    response.json({"id": request.params.id});
+//     response.json({"id": request.params.id});
 
+// });
+// In server.js
+
+app.delete("/products/:id", async (request, response) => {
+    try {
+        const result = await DatabaseConnection.getInstance().deleteProduct(request.params.id);
+        if (result.deletedCount === 0) {
+            return response.status(404).json({ message: "Product not found" });
+        }
+        response.json({ message: "Product deleted successfully", id: request.params.id });
+    } catch (error) {
+        console.error("Failed to delete product:", error);
+        response.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 
