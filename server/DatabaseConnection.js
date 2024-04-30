@@ -79,16 +79,34 @@ class DatabaseConnection {
     //     return result.insertedId;
     // }
 
-    async createProduct() {
-        await this.connect();
+    // async createProduct() {
+    //     await this.connect();
 
-        let db = this.client.db("shop");
-        let collection = db.collection("products");
+    //     let db = this.client.db("shop");
+    //     let collection = db.collection("products");
 
-        let result = await collection.insertOne({"status": "draft", "name": null, "description": null, "image": null, "amountInStock": 0, "price": 0, "category": null});
+    //     let result = await collection.insertOne({"status": "draft", "name": null, "description": null, "image": null, "amountInStock": 0, "price": 0, "category": null});
 
-        return result.insertedId;
-    }
+    //     return result.insertedId;
+    // }
+    async createProduct(productData) {
+      await this.connect();
+      const db = this.client.db("shop");
+      const collection = db.collection("products");
+  
+      let result = await collection.insertOne({
+          status: "active",
+          name: productData.name || "",
+          description: productData.description || "",
+          image: productData.image || "",  
+          amountInStock: productData.amountInStock || 0,
+          price: productData.price || 0,
+          category: productData.category || null
+      });
+  
+      return result.insertedId;
+  }
+
 
     async updateProduct(id, productData) {
         await this.connect();
@@ -100,6 +118,7 @@ class DatabaseConnection {
             "name": productData["name"],
             "description": productData["description"],
             "amountInStock": productData["amountInStock"],
+            "image": productData["image"] || "",
             "price": productData["price"],
             "category": productData["category"] ? new mongodb.ObjectId(productData["category"]) : null
         }});
@@ -215,6 +234,16 @@ async deleteProduct(productId) {
   return result;
 }
 
+
+// In DatabaseConnection.js
+
+async deleteOrder(orderId) {
+  await this.connect();
+  const db = this.client.db("shop");
+  const ordersCollection = db.collection("orders");
+  const result = await ordersCollection.deleteOne({ _id: new mongodb.ObjectId(orderId) });
+  return result;
+}
 
 
 }

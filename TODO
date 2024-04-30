@@ -10,7 +10,7 @@ Krav för G
 
 - [x] Databas uppsatt i tabeller/collections enligt diagram
 
-- Utveckla användargränssnitt för administratörer där de kan lägga till, (ta bort) och redigera produkter
+- [x] Utveckla användargränssnitt för administratörer där de kan lägga till, (ta bort) och redigera produkter
 
 - [x] Produkter ska sparas i databasen
 

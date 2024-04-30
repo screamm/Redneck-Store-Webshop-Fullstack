@@ -62,12 +62,27 @@ app.post("/create-order", async (request, response) => {
 
 
 
+// DELETE ORDER
+
+app.delete("/orders/:id", async (request, response) => {
+    try {
+        const result = await DatabaseConnection.getInstance().deleteOrder(request.params.id);
+        if (result.deletedCount === 0) {
+            return response.status(404).json({ message: "Order not found" });
+        }
+        response.json({ message: "Order deleted successfully", id: request.params.id });
+    } catch (error) {
+        console.error("Failed to delete order:", error);
+        response.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 
 
 //LÄGG TILL PRODUKT
 app.post("/products", async (request, response) => {
     
-    let id = await DatabaseConnection.getInstance().createProduct();
+    let id = await DatabaseConnection.getInstance().createProduct(request.body);
     await DatabaseConnection.getInstance().updateProduct(id, request.body);
 
     response.json({"id": id});

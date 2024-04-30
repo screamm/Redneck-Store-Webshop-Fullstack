@@ -26,5 +26,9 @@
   {
     "email": "david8@gmail.com",
     "password": "$2b$10$yg.8NR4nfLRxK41/Ui1T/us5bsns8a.vrHkqHu7BiYrCTiSTIHqJe"
+  },
+  {
+    "email": "admin@admin.se",
+    "password": "$2b$10$yPluvgtLlMtarZhyskKnTusGr7wYlqyz19p0a16Lf66oRLfZeieji"
   }
 ]
