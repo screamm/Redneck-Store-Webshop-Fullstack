@@ -26,7 +26,6 @@ class DatabaseConnection {
       let db = this.client.db("shop");
       let collection = db.collection("orders");
   
-      // Beräkna totalt pris för ordern om det inte redan är givet
       if (!orderTotalPrice) {
           orderTotalPrice = lineItems.reduce((total, item) => total + item.totalPrice, 0);
       }
@@ -43,7 +42,7 @@ class DatabaseConnection {
       let encodedLineItems = lineItems.map((lineItem) => {
           return {
               "amount": lineItem["amount"],
-              "totalPrice": lineItem["totalPrice"], // Använd det faktiska totalpriset från klienten
+              "totalPrice": lineItem["totalPrice"], 
               "order": new mongodb.ObjectId(orderId),
               "product": new mongodb.ObjectId(lineItem["product"]),
           }
@@ -54,58 +53,36 @@ class DatabaseConnection {
   
       return orderId;
   }
-    // async saveOrder(lineItems, customer) {
 
-    //     await this.connect();
 
-    //     let db = this.client.db("shop");
-    //     let collection = db.collection("orders");
-
-    //     let result = await collection.insertOne({"customer": customer, "orderDate": new Date(), "status": "unpaid", "totalPrice": 0, "paymentId": null}); //METODO: calculate total price
-
-    //     let orderId = result.insertedId;
-    //     let encodedLineItems = lineItems.map((lineItem) => {
-    //         return {
-    //             "amount": lineItem["amount"],
-    //             "totalPrice": 0 /* METODO: calculate */,
-    //             "order": new mongodb.ObjectId(orderId),
-    //             "product": new mongodb.ObjectId(lineItem["product"]),
-    //         }
-    //     })
-        
-    //     let lineItemsCollection = db.collection("lineItems");
-    //     await lineItemsCollection.insertMany(encodedLineItems)
-
-    //     return result.insertedId;
-    // }
-
-    // async createProduct() {
-    //     await this.connect();
-
-    //     let db = this.client.db("shop");
-    //     let collection = db.collection("products");
-
-    //     let result = await collection.insertOne({"status": "draft", "name": null, "description": null, "image": null, "amountInStock": 0, "price": 0, "category": null});
-
-    //     return result.insertedId;
-    // }
     async createProduct(productData) {
       await this.connect();
       const db = this.client.db("shop");
       const collection = db.collection("products");
-  
+      
       let result = await collection.insertOne({
           status: "active",
           name: productData.name || "",
           description: productData.description || "",
-          image: productData.image || "",  
-          amountInStock: productData.amountInStock || 0,
-          price: productData.price || 0,
+          image: productData.image || "",
+          amountInStock: parseFloat(productData.amountInStock) || 0,
+          price: parseFloat(productData.price) || 0, 
           category: productData.category || null
-      });
-  
+      }
+      );
+      
+
+      console.log("Type of price after saving:", typeof productData.price
+      );
+
+
+
+    
+      
+      
       return result.insertedId;
   }
+
 
 
     async updateProduct(id, productData) {
@@ -202,7 +179,7 @@ class DatabaseConnection {
           },
           {
             $addFields: {
-              linkedCustomerEmail: "$customer",  // Directly use customer as it's the email
+              linkedCustomerEmail: "$customer",  
             },
           },
         ];
@@ -224,7 +201,6 @@ class DatabaseConnection {
         return instance;
     }
 
-// In DatabaseConnection.js
 
 async deleteProduct(productId) {
   await this.connect();
@@ -233,9 +209,6 @@ async deleteProduct(productId) {
   const result = await collection.deleteOne({ _id: new mongodb.ObjectId(productId) });
   return result;
 }
-
-
-// In DatabaseConnection.js
 
 async deleteOrder(orderId) {
   await this.connect();

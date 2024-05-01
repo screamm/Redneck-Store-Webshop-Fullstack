@@ -9,36 +9,38 @@ const AddProduct = () => {
         amountInStock: 0,
         category: ''
     });
-    const [showForm, setShowForm] = useState(false); // State to control form visibility
+    const [showForm, setShowForm] = useState(false); 
 
-    // const handleChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setFormData(prevState => ({
-    //         ...prevState,
-    //         [name]: name === 'price' || name === 'amountInStock' ? parseFloat(value) || 0 : value
-    //     }));
-    // };
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData(prevState => ({
             ...prevState,
-            [name]: value  // This ensures that all inputs, including the image URL, are correctly updated.
+            [name]: value  
+
+            
+
         }));
     };
 
-    
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const productData = {
+            ...formData,
+            price: parseFloat(formData.price) || 0,  
+            amountInStock: parseInt(formData.amountInStock, 10) || 0 
+        };
+    
         try {
             const response = await fetch('http://localhost:3000/products', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(productData)  
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.message || 'Failed to create product');
             alert('Product added successfully!');
-            // Reset form and hide it
+            
             setFormData({
                 name: '',
                 description: '',
@@ -53,6 +55,7 @@ const AddProduct = () => {
             alert('Failed to add product: ' + error.message);
         }
     };
+        
 
     const toggleFormVisibility = () => {
         setShowForm(!showForm);
@@ -64,6 +67,8 @@ const AddProduct = () => {
                 {showForm ? "Hide Form" : "Add Product"}
             </button>
             {showForm && (
+                
+                <div className=' pt-6'>
                 <form onSubmit={handleSubmit} className="mt-4">
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required className=" border-2 rounded-md border-lime-600 mt-2"/>
              <br />
@@ -78,6 +83,7 @@ const AddProduct = () => {
                
                     <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2">Add Product</button>
                 </form>
+                </div>
             )}
         </div>
     );

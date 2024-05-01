@@ -9,8 +9,7 @@ const cookieSession = require("cookie-session");
 
 const authRouter = require("./routers/auth.router")
 const usersRouter = require("./routers/users.router")
-// const stripeRouter = require("./routers/stripe.router")
-// const { getProducts } = require("./controllers/stripe.controller");
+
 
 
 const app = express();
@@ -46,7 +45,6 @@ app.get("/products", async (request, response) => {
 
 
 //SKAPA ORDER
-
 app.post("/create-order", async (request, response) => {
     try {
         let { lineItems, email, status, totalPrice } = request.body;
@@ -63,7 +61,6 @@ app.post("/create-order", async (request, response) => {
 
 
 // DELETE ORDER
-
 app.delete("/orders/:id", async (request, response) => {
     try {
         const result = await DatabaseConnection.getInstance().deleteOrder(request.params.id);
@@ -81,7 +78,8 @@ app.delete("/orders/:id", async (request, response) => {
 
 //LÄGG TILL PRODUKT
 app.post("/products", async (request, response) => {
-    
+    console.log("Received product data:", request.body);
+
     let id = await DatabaseConnection.getInstance().createProduct(request.body);
     await DatabaseConnection.getInstance().updateProduct(id, request.body);
 
@@ -92,7 +90,8 @@ app.post("/products", async (request, response) => {
 
 //UPPDATERA PRODUKT
 app.post("/products/:id", async (request, response) => {
-    
+    console.log("Received product data:", request.body);
+
     await DatabaseConnection.getInstance().updateProduct(request.params.id, request.body);
 
     response.json({"id": request.params.id});
@@ -102,15 +101,6 @@ app.post("/products/:id", async (request, response) => {
 
 
 //TAG BORT PRODUKT
-// app.delete("/products/:id", async (request, response) => {
-    
-//     await DatabaseConnection.getInstance().updateProduct(request.params.id, request.body);
-
-//     response.json({"id": request.params.id});
-
-// });
-// In server.js
-
 app.delete("/products/:id", async (request, response) => {
     try {
         const result = await DatabaseConnection.getInstance().deleteProduct(request.params.id);
@@ -134,9 +124,6 @@ app.use(cookieSession({
 
   app.use("/auth", authRouter)
   app.use("/users", usersRouter)
-//   app.use("/payments", stripeRouter);
-//   app.get("/products", getProducts);
 
-
-// app.listen(3000);
+  
 app.listen(3000, () => console.log(" ***** Server  is running on port 3000 ***** ".yellow.bold));

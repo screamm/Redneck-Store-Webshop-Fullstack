@@ -10,7 +10,7 @@ export const DeleteProduct = ({ productId, fetchProducts }) => {
       if (!response.ok) throw new Error(data.message || "Failed to delete the product");
 
       alert("Product deleted successfully!");
-      fetchProducts(); // Refresh the product list
+      fetchProducts(); 
     } catch (error) {
       console.error("Failed to delete product:", error);
       alert("Failed to delete product: " + error.message);

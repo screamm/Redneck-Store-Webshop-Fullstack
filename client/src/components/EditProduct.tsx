@@ -17,7 +17,7 @@ const EditProduct = ({ product, saveEdit, cancelEdit }) => {
   };
 
   const handleSubmit = () => {
-    saveEdit(product._id, formData); // Call the function passed via props to save the edited data
+    saveEdit(product._id, formData); 
   };
 
   return (
