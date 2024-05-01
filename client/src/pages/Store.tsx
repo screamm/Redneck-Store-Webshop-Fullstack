@@ -3,7 +3,6 @@ import { useCart } from "../context/CartContext";
 import Header from "../components/Header";
 import CartModal from "../components/CartModal";
 import logo from "../img/logo redneck.png";
-// import CircularProgress from '@mui/material/CircularProgress';
 
 export const Store = () => {
   const [products, setProducts] = useState([]);
@@ -20,10 +19,8 @@ export const Store = () => {
           
           throw new Error("ERROR: Failed to fetch products");
         }
-        // console.log("Server response ", response.status);
 
         const data = await response.json();
-        // console.log("Fetched products:", data);
         setProducts(data || []);
         console.log("Fetched products:", data);
       } catch (error) {
@@ -34,15 +31,7 @@ export const Store = () => {
     fetchProducts();
     
   }, []);
-  // console.log("Fetched products:", products);
 
-  // if (!products.length) {
-  //   return (
-  //   <div className="flex mt-96 justify-center">
-      
-  //   <CircularProgress />
-  //   </div>
-  // )}
 
 
 return (
@@ -79,4 +68,3 @@ return (
   </>
 );
 }
-
