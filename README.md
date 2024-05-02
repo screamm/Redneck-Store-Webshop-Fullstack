@@ -17,10 +17,9 @@ YH-shool assignment webshop.
 <br>
 <h2>Requirements</h2>
 
-- Diagram:
-- [x] database
-- [x] sitemap
-- [x] timeplan
+- [x] Database ER-diagram
+- [x] Sitemap
+- [x] Timeplan
 
 - [x] Databas uppsatt i tabeller/collections enligt diagram
 
