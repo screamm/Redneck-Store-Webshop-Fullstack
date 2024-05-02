@@ -1,5 +1,7 @@
 <p align="center">
 
+<img src="https://github.com/screamm/Redneck-Shop/blob/main/Screenshot%20store.png" alt="redneck store">
+  
 </p>
 <br>
 
