@@ -49,7 +49,7 @@ export const LoginPage = () => {
 
 return (
     <>
-    {/* <Header /> */}
+   
     <Header setIsModalOpen={setIsModalOpen} />
     <CartModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 

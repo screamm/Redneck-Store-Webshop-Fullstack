@@ -62,13 +62,13 @@ export const Admin = () => {
 
 
 return (
-  <div className="flex flex-col bg-redneckbg min-h-screen border-8 border-black">
+  <div className="flex flex-col bg-redneckbg min-h-screen ">
     {isLoggedIn ? (
       <>
-        <div className="w-screen pt-8 border-4 border-black">
-          <img src={logo} alt="Logo" className="w-1/4 mx-auto border-4 border-black" />
-          <div className="flex flex-col items-center justify-center mt-4 border-4 border-black">
-          <div className="flex flex-row items-center justify-evenly mt-4 border-4  border-pink-600 w-screen">
+        <div className="w-screen pt-8 ">
+          <img src={logo} alt="Logo" className="w-1/4 mx-auto " />
+          <div className="flex flex-col items-center justify-center mt-4 ">
+          <div className="flex flex-row items-center justify-evenly mt-4  w-screen">
             <AdminEdit />
             <AddProduct />
             <button

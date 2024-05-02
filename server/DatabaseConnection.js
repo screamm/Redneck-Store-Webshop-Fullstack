@@ -1,4 +1,6 @@
 const mongodb = require("mongodb");
+const bcrypt = require('bcrypt');
+
 
 let instance = null;
 
@@ -83,6 +85,12 @@ class DatabaseConnection {
       return result.insertedId;
   }
 
+  async findUserByEmail(email) {
+    await this.connect();
+    const db = this.client.db("shop");
+    const collection = db.collection("customers");
+    return await collection.findOne({ email: email });
+}
 
 
     async updateProduct(id, productData) {
@@ -200,6 +208,30 @@ class DatabaseConnection {
         }
         return instance;
     }
+
+
+
+
+    async createUser(userData) {
+        await this.connect();
+        const db = this.client.db("shop");
+        const collection = db.collection("customers");
+    
+        const hashedPassword = await bcrypt.hash(userData.password, 10);
+    
+        const result = await collection.insertOne({
+            _id: userData.email,  
+            name: userData.name,
+            email: userData.email,
+            password: hashedPassword,  
+        
+        });
+    
+        return result.insertedId; 
+    }
+    
+
+
 
 
 async deleteProduct(productId) {

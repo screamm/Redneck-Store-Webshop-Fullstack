@@ -83,7 +83,7 @@ const AdminEdit = () => {
         {showProducts ? "Hide Products" : "Fetch Products"}
       </button>
       {showProducts && products.map((product) => (
-        <div key={product._id} className="product-item mt-4 border-4">
+        <div key={product._id} className="product-item mt-4 ">
           {editProductId === product._id ? (
             <div>
               <input type="text" name="name" value={editFormData.name} onChange={handleChange} className=" border-2 rounded-md border-lime-600 mt-2"/>

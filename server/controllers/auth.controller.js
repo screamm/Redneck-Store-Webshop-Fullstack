@@ -4,35 +4,35 @@ const fetchUsers = require("../utils/fetchUsers")
 const path = require("path");
 
 
+const DatabaseConnection = require('../DatabaseConnection');  
 
 const register = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const existingUser = await DatabaseConnection.getInstance().findUserByEmail(email);
+        if (existingUser) {
+            return res.status(409).json({ message: "User already exists" });
+        }
 
-    const { email, password } = req.body
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    const users = await fetchUsers()
-    const userAlreadyExists = users.find(u => u.email === email)
+        const userId = await DatabaseConnection.getInstance().createUser({
+            email,
+            password: hashedPassword  
+        });
 
-    if (userAlreadyExists) {
-        return res.status(400).json("EXISTING USER, TRY AGAIN")
+        const usersFilePath = path.join(__dirname, '..', 'data', 'users.json');
+        const users = JSON.parse(await fs.readFile(usersFilePath));
+        users.push({ email, password: hashedPassword, _id: userId });
+        await fs.writeFile(usersFilePath, JSON.stringify(users, null, 4));
+
+        res.status(201).json({ message: "User registered successfully", userId });
+    } catch (error) {
+        console.error("Failed to register user:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
+};
 
-    const hashedPassword = await bcrypt.hash(password, 10)
-
-    const newUser = {
-        email,
-        password: hashedPassword
-
-    }
-
-
-
-    const usersFilePath = path.join(__dirname, "..", "data", "users.json");
-    users.push(newUser)
-
-    await fs.writeFile(usersFilePath, JSON.stringify(users, null, 2));
-
-    res.status(201).json(newUser.email)
-}
 
 const login = async (req, res) => {
     const { email, password } = req.body

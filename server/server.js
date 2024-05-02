@@ -116,6 +116,25 @@ app.delete("/products/:id", async (request, response) => {
 
 
 
+//SKAPA NY ANVÄNDARE
+app.post("/register", async (request, response) => {
+    const userData = request.body;
+    try {
+        const userId = await DatabaseConnection.getInstance().createUser(userData);
+        const usersFilePath = path.join(__dirname, "data", "users.json");
+        const users = JSON.parse(await fs.promises.readFile(usersFilePath));
+        users.push({...userData, _id: userId});  
+        await fs.promises.writeFile(usersFilePath, JSON.stringify(users, null, 4));
+
+        response.status(201).json({ message: "User registered successfully", userId });
+    } catch (error) {
+        console.error("Failed to register user:", error);
+        response.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+
 
 app.use(cookieSession({
     secret: "DontTellAnyone",
@@ -125,5 +144,5 @@ app.use(cookieSession({
   app.use("/auth", authRouter)
   app.use("/users", usersRouter)
 
-  
+
 app.listen(3000, () => console.log(" ***** Server  is running on port 3000 ***** ".yellow.bold));

@@ -6,10 +6,10 @@ const Logout = () => {
   const { setUser } = useCart();
 
   const handleLogout = async () => {
-    // const confirmLogout = confirm("LOGGING OUT?");
-    // if (!confirmLogout) {
-    //   return;
-    // }
+    const confirmLogout = confirm("LOGGING OUT?");
+    if (!confirmLogout) {
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:3000/auth/logout", {

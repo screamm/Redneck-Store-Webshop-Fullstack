@@ -16,7 +16,7 @@ export const Registration = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {

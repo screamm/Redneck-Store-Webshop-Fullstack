@@ -1,34 +1,76 @@
 [
-  {
-    "email": "david@gmail.com",
-    "password": "$2b$10$L6G4ajMknQjNgazJLqNVbu5U/m5klip3683PNlDygS/we9bUm3OCS"
-  },
-  {
-    "email": "david2@gmail.com",
-    "password": "$2b$10$E86w.q362LUrrGrtU.asxeyXbn9zJAAavDoi/bySwACbJDYnNQC1u"
-  },
-  {
-    "email": "david3@gmail.com",
-    "password": "$2b$10$Tc0MMqLL9y5jqxyJNOphYOK/h66lNWeGDeEMr/Bt9AiZ/XKMG7d72"
-  },
-  {
-    "email": "david4@gmail.com",
-    "password": "$2b$10$D0R2N4VWbS.EQPgOAIN34.OOoeKbqy/7Zd1dk9pT/9fgMXls3WiEu"
-  },
-  {
-    "email": "david123",
-    "password": "david123"
-  },
-  {
-    "email": "david9@gmail.com",
-    "password": "$2b$10$2OqmipnpY6qyr5VXMaZx2e1q26qSPTrWzBoGR5FJUK1xCt19D9QVm"
-  },
-  {
-    "email": "david8@gmail.com",
-    "password": "$2b$10$yg.8NR4nfLRxK41/Ui1T/us5bsns8a.vrHkqHu7BiYrCTiSTIHqJe"
-  },
-  {
-    "email": "admin@admin.se",
-    "password": "$2b$10$yPluvgtLlMtarZhyskKnTusGr7wYlqyz19p0a16Lf66oRLfZeieji"
-  }
+    {
+        "email": "david@gmail.com",
+        "password": "$2b$10$L6G4ajMknQjNgazJLqNVbu5U/m5klip3683PNlDygS/we9bUm3OCS"
+    },
+    {
+        "email": "david2@gmail.com",
+        "password": "$2b$10$E86w.q362LUrrGrtU.asxeyXbn9zJAAavDoi/bySwACbJDYnNQC1u"
+    },
+    {
+        "email": "david3@gmail.com",
+        "password": "$2b$10$Tc0MMqLL9y5jqxyJNOphYOK/h66lNWeGDeEMr/Bt9AiZ/XKMG7d72"
+    },
+    {
+        "email": "david4@gmail.com",
+        "password": "$2b$10$D0R2N4VWbS.EQPgOAIN34.OOoeKbqy/7Zd1dk9pT/9fgMXls3WiEu"
+    },
+    {
+        "email": "david123",
+        "password": "david123"
+    },
+    {
+        "email": "david9@gmail.com",
+        "password": "$2b$10$2OqmipnpY6qyr5VXMaZx2e1q26qSPTrWzBoGR5FJUK1xCt19D9QVm"
+    },
+    {
+        "email": "david8@gmail.com",
+        "password": "$2b$10$yg.8NR4nfLRxK41/Ui1T/us5bsns8a.vrHkqHu7BiYrCTiSTIHqJe"
+    },
+    {
+        "email": "admin@admin.se",
+        "password": "$2b$10$yPluvgtLlMtarZhyskKnTusGr7wYlqyz19p0a16Lf66oRLfZeieji"
+    },
+    {
+        "email": "david7@gmail.com",
+        "password": "$2b$10$sPpWvyHwosL0ttrHLPCO0.ok6JjxJa4.c3.zB/zQgi71qKvS.hv7q"
+    },
+    {
+        "email": "TESTAR@TEST.TEST",
+        "password": "$2b$10$i7yrO6w7ym452BGqQzDOhe4df/ZbC4aPBHjR2N7yCqnYL3tEJg2xe"
+    },
+    {
+        "email": "TESTAR@TEST.OK",
+        "password": "$2b$10$9w8lLndbcb.hS.JD1IVfq.lADjP6bh153sqCgYVclu15S9jN1wO.e"
+    },
+    {
+        "email": "TESTAR@TEST.SE",
+        "password": "$2b$10$9G3iR2vRgtxY2VIMF40ZqOSpAAFePk8bjTTOed7o3yWAClzYiqYX2"
+    },
+    {
+        "email": "TESTAR@TEST.NO",
+        "password": "$2b$10$rB8quhpSKI3uGwGsi/UWmegiYRc3ZOtRsJq72hsYZ661NSWWvVHVK"
+    },
+    {
+        "email": "TESTAR@TEST.PP",
+        "password": "$2b$10$qPQYAADCwekPHdnTp5oXq.svBTE5b1EhZfCNIuY4zmSmA.iSB3a/a"
+    },
+    {
+        "email": "TESTAR@TEST.OO",
+        "password": "$2b$10$kdY0rRBIJPyjvf4akvl06e.HFVhXKe68e4IiP4.9Fn9UyE50mo0Oa"
+    },
+    {
+        "email": "test@i.i",
+        "password": "$2b$10$Rk.sCeze3/cl5txP/PajOeN6QdJcYBPQ5w3iJOqP90cr4CU1/usee"
+    },
+    {
+        "email": "test@i.o",
+        "password": "$2b$10$o9tW9hXG2ibFwL3OfTRkGOHcJTwsDT/9ehByAMycSbN/sQaXFrgzC",
+        "_id": "663340bc8351152274d0c695"
+    },
+    {
+        "email": "ok@tt.er",
+        "password": "$2b$10$3KoCDGDupRzEeFOz6amVK.V8OuEkRSK3cOB6hRKdyF7zlZv.Jj8Ni",
+        "_id": "ok@tt.er"
+    }
 ]
