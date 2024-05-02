@@ -41,6 +41,7 @@ YH-shool assignment webshop.
 <h2>Installation</h2>
 <br>
 <br>
+
 - Clone repository 
 - Node.js installed
 - MongoDB running at localhos:27017 in a Docker Container
