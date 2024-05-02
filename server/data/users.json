@@ -72,5 +72,10 @@
         "email": "ok@tt.er",
         "password": "$2b$10$3KoCDGDupRzEeFOz6amVK.V8OuEkRSK3cOB6hRKdyF7zlZv.Jj8Ni",
         "_id": "ok@tt.er"
+    },
+    {
+        "email": "mattias@G.ok",
+        "password": "$2b$10$Lc6oF8wX4BpBsisZbp/53eBVKu8m29Tz95dahtmrX2rlr1l7NdQfW",
+        "_id": "mattias@G.ok"
     }
 ]

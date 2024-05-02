@@ -3,10 +3,10 @@
 Krav för G
 
 
-- []Diagram för:
-        - databas
-        - sitemap
-        - tidsplan
+- Diagram för:
+- [x] databas
+- [ ] sitemap
+- [x] tidsplan
 
 - [x] Databas uppsatt i tabeller/collections enligt diagram
 
@@ -19,18 +19,3 @@ Krav för G
 - [x] Användaren ska kunna "betala" för sina varor och skapa en order i databasen
 
 - [x] Administratören ska kunna se listan med ordrar och vilka varor som beställts
-
-
-VG
-
-- Samtliga punkter för G
-
-- Alla typer av objekt i databasen ska ha en egen klass som resten av kodbasen arbetar mot. -> (t.ex. Order, Product, User)
-
-- Alla klasser ska ärva från en basklass som sköter laddande och sparande av data till databasen
-
-- En singleton ska användas för alla databasfrågor 
-
-- Varukorgen ska sparas i databasen och delar gemensam funktionalitet med order-klassen
-
-- Betalning genomförs med vald betaltjänst (t.ex. Stripe)
