@@ -4,7 +4,7 @@
 <br>
 
 <h3 align="center">
-  Fullstack application 
+  Fullstack application Webshop
 </h3>
 <br>
 <br>
@@ -15,18 +15,24 @@ YH-shool assignment webshop.
 
 <br>
 <br>
-<h2>Requirements G</h2>
+<h2>Requirements</h2>
 
-- [] Diagram för:
-    - databas
-    - sitemap
-    - tidsplan
-- [] Databas uppsatt i tabeller/collections enligt diagram
-- [] Utveckla användargränssnitt för administratörer där de kan lägga till, (ta bort) och redigera produkter
-- [] Produkter ska sparas i databasen
-- [] Användare ska kunna se en lista med alla produkter och lägga dem i sin varukorg
-- [] Användaren ska kunna "betala" för sina varor och skapa en order i databasen
-- [] Administratören ska kunna se listan med ordrar och vilka varor som beställts
+- Diagram:
+- [x] database
+- [x] sitemap
+- [x] timeplan
+
+- [x] Databas uppsatt i tabeller/collections enligt diagram
+
+- [x] Utveckla användargränssnitt för administratörer där de kan lägga till, (ta bort) och redigera produkter
+
+- [x] Produkter ska sparas i databasen
+
+- [x] Användare ska kunna se en lista med alla produkter och lägga dem i sin varukorg
+
+- [x] Användaren ska kunna "betala" för sina varor och skapa en order i databasen
+
+- [x] Administratören ska kunna se listan med ordrar och vilka varor som beställts
 
 <br>
 <br>
@@ -34,9 +40,9 @@ YH-shool assignment webshop.
 <h2>Installation</h2>
 <br>
 <br>
-
 - Clone repository 
 - Node.js installed
+- MongoDB running at localhos:27017 in a Docker Container
 
 - Open Terminal for Client: `cd client` run `npm install` and `npm run dev`
 - Open new Terminal for Server: `cd server` run `npm install` and `npm start`
@@ -65,6 +71,7 @@ I love the entire process of developing creative websites.
 - REST API
 - Node.js
 - Tailwind CSS
+- MongoDB
 
   <br>
   

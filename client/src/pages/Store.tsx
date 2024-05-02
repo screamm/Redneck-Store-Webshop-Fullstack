@@ -41,7 +41,7 @@ return (
 
 
     <div className="flex justify-center mt-6">
-      <img src={logo} alt="Logo" className="w-1/3" />
+      <img src={logo} alt="Logo" className="w-1/5" />
     </div>
 
 
